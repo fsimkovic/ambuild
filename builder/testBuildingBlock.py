@@ -463,7 +463,7 @@ class Test(unittest.TestCase):
     
     def testMaxBond(self):
         carfile = os.path.join(BLOCKS_DIR, "DCX.car")
-        f = fragment.Fragment(filePath=carfile, fragmentType='A')
+        f = fragment.fragmentFactory('A', carfile)
         f.setMaxBond('A:CH', 1)
         block1 = Block(initFragment=f)
         
@@ -485,7 +485,7 @@ class Test(unittest.TestCase):
     
     def testBondingFunction(self):
         carfile = os.path.join(BLOCKS_DIR, "benzene6.car")
-        f = fragment.Fragment(filePath=carfile, fragmentType='A')
+        f = fragment.fragmentFactory('A', carfile)
         def x(endGroup):
             fragment = endGroup.fragment
             egt = endGroup.type()
@@ -519,6 +519,8 @@ class Test(unittest.TestCase):
         self.assertEqual(len(block1.freeEndGroups()),6)
         self.assertEqual(len(block2.freeEndGroups()),4)
         
+        print "GOT ",block1.freeEndGroups()[0]
+        
         # Create a bond to the first endGroup
         eg1 = block1.freeEndGroups(endGroupTypes='A:a')[0]
         eg2 = block2.freeEndGroups()[0]
@@ -534,7 +536,7 @@ class Test(unittest.TestCase):
 
 
         # Try with no settings
-        f = fragment.Fragment(filePath=self.ch4_1Car, fragmentType='A')
+        f = fragment.fragmentFactory('A', self.ch4_1Car)
         m1 = Block(initFragment=f)
         m2 = m1.copy()
 
@@ -548,7 +550,7 @@ class Test(unittest.TestCase):
         self.assertEqual(6, len(m1.freeEndGroups()))
 
         # Try with specifying bond
-        f = fragment.Fragment(filePath=self.ch4_1Car, fragmentType='A')
+        f = fragment.fragmentFactory('A', self.ch4_1Car)
         m1 = Block(initFragment=f)
         f.setMaxBond('A:a', 1)
         m2 = m1.copy()

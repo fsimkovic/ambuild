@@ -2068,6 +2068,7 @@ class Cell():
 
         # Create fragment
         frag = fragment.Fragment(filename, fragmentType, solvent=solvent, markBonded=markBonded)
+        frag = fragment.fragmentFactory(fragmentType, filename, solvent=solvent, markBonded=markBonded)
 
         # Update cell parameters for this fragment
         maxAtomRadius = frag.maxAtomRadius()

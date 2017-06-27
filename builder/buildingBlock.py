@@ -62,7 +62,8 @@ class Block(object):
         # Need to change so cannot create block withough fragmentType
         if filePath:
             assert os.path.isfile(filePath) and fragmentType
-            initFragment = fragment.Fragment(filePath, fragmentType)
+            #initFragment = fragment.Fragment(filePath, fragmentType)
+            initFragment = fragment.fragmentFactory(fragmentType, filePath)
 
         # List of the fragments contained in this one
         self.fragments = []
